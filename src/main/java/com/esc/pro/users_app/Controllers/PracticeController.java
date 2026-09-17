@@ -1,9 +1,8 @@
 package com.esc.pro.users_app.Controllers;
 
 import com.esc.pro.users_app.Models.User;
-import com.esc.pro.users_app.Services.UserService;
+import com.esc.pro.users_app.Services.UserServiceByList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,7 @@ import java.util.List;
 @RequestMapping("RestCV1")
 public class PracticeController {
     @Autowired
-    private UserService userService;
+    private UserServiceByList userService;
 
     @GetMapping("greeting")
     public ResponseEntity<String> getGreeting(){

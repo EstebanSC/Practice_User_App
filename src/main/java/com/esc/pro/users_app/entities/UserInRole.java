@@ -1,6 +1,5 @@
 package com.esc.pro.users_app.entities;
 
-import com.esc.pro.users_app.Models.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +21,7 @@ public class UserInRole {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
 
