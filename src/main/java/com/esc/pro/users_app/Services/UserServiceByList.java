@@ -4,7 +4,6 @@ import com.esc.pro.users_app.Models.User;
 import com.github.javafaker.Faker;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,11 +12,10 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 @Service
-public class UserService {
+public class UserServiceByList {
 
     @Autowired
     private Faker faker;
