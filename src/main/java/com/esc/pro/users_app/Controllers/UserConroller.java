@@ -2,7 +2,12 @@ package com.esc.pro.users_app.Controllers;
 
 import com.esc.pro.users_app.Services.UserService;
 import com.esc.pro.users_app.entities.User;
+import io.micrometer.core.annotation.Timed;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +23,14 @@ public class UserConroller {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<Page<User>> getUsers(@RequestParam(required = false, value = "page", defaultValue = "0") int page,
+    @Timed("get.users")
+    @Operation( summary = "Get Users Created",
+            description = "Returns a list of users created.",
+    responses = {
+        @ApiResponse(responseCode = "200", description = "Successful operation"),
+        @ApiResponse(responseCode = "404", description = "Users don't exist.")
+    })
+    public ResponseEntity<Page<User>> getUsers(@RequestParam(required = false, value = "page", defaultValue = "1") int page,
                                                @RequestParam(required = false, value = "size", defaultValue = "1000") int size) {
         return new ResponseEntity<>(userService.getUsers(page, size), HttpStatus.OK);
     }
@@ -38,5 +50,11 @@ public class UserConroller {
     @GetMapping("/userName/{userName}")
     public ResponseEntity<User> getUserByName(@PathVariable("userName") String userName) {
         return new ResponseEntity<>(userService.getUserByUserName(userName), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/userName/{userName}")
+    public  ResponseEntity<Void> deleteUser(@PathVariable("userName") String userName) {
+        userService.deleteUserByUserName(userName);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -4,13 +4,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name="users")
 @Getter
 @Setter
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +28,7 @@ public class User {
     @JoinColumn(name="profile_id", referencedColumnName = "id")
     private Profile profile;
 
+    private static final long serialVersionUID = -196512502239989562L;
 
     @Override
     public boolean equals(Object o) {

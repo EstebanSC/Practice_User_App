@@ -2,7 +2,11 @@ package com.esc.pro.users_app.Services;
 
 import com.esc.pro.users_app.Repositories.UserRepository;
 import com.esc.pro.users_app.entities.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -15,6 +19,8 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
+
     @Autowired
     UserRepository userRepository;
 
@@ -26,8 +32,16 @@ public class UserService {
         return userRepository.findById(userId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("User %d not found", userId)));
     }
 
+    @Cacheable("users")
     public User getUserByUserName(String userName) {
+        log.info("Getting user by userName {}", userName);
         return userRepository.findByUserName(userName).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("User with username : %s not found", userName)));
+    }
+
+    @CacheEvict("users")
+    public void deleteUserByUserName(String userName) {
+        User user = getUserByUserName(userName);
+        userRepository.delete(user);
     }
 
     public Page<String> getUserNames(int page, int size) {
