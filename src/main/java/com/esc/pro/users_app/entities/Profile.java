@@ -26,6 +26,10 @@ public class Profile {
     @Column(name = "birth_date")
     private Date birthDate;
 
+    @OneToOne
+    @JoinColumn(name="user_id", referencedColumnName = "id")
+    private User user;
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
