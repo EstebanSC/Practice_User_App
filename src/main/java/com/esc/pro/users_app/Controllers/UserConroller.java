@@ -2,6 +2,7 @@ package com.esc.pro.users_app.Controllers;
 
 import com.esc.pro.users_app.Services.UserService;
 import com.esc.pro.users_app.entities.User;
+import com.esc.pro.users_app.entities.UserInRole;
 import io.micrometer.core.annotation.Timed;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,6 +19,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserConroller {
+
+    public record UserInRoleIds (Integer roleId, Integer userId){};
 
     @Autowired
     private UserService userService;
@@ -57,4 +60,15 @@ public class UserConroller {
         userService.deleteUserByUserName(userName);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PostMapping("/assignRole")
+    public ResponseEntity<UserInRole> assignRoleToUser(@RequestBody UserInRoleIds userInRoleIds) {
+        return new ResponseEntity<>(userService.asignRoleToUser(userInRoleIds.roleId,userInRoleIds.userId),HttpStatus.CREATED);
+    }
+
+    @GetMapping("/roles/{roleId}")
+    public ResponseEntity<List<User>> getUsersByRole(@PathVariable("roleId") Integer roleId){
+        return new ResponseEntity<>(userService.getUsersByRole(roleId),HttpStatus.OK);
+    }
+
 }

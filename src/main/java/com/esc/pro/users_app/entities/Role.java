@@ -21,6 +21,12 @@ public class Role {
     @Column(name = "name")
     private String name;
 
+    public Role () {}
+
+    public Role(String name) {
+        this.name=name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

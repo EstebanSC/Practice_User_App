@@ -1,6 +1,7 @@
 package com.esc.pro.users_app.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Table (name = "user_in_role")
 @Getter
 @Setter
+
 public class UserInRole {
 
     @Id
@@ -24,6 +26,8 @@ public class UserInRole {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+
 
     @Override
     public boolean equals(Object o) {
