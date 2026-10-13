@@ -7,6 +7,7 @@ import com.esc.pro.users_app.entities.Role;
 import com.esc.pro.users_app.entities.User;
 import com.esc.pro.users_app.entities.UserInRole;
 import com.github.javafaker.Faker;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -16,6 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.Arrays;
 import java.util.Random;
 
+@Slf4j
 @SpringBootApplication
 public class UsersAppApplication implements ApplicationRunner {
 
@@ -49,6 +51,7 @@ public class UsersAppApplication implements ApplicationRunner {
 			UserInRole userInRole = new UserInRole();
 			userInRole.setUser(user);
 			userInRole.setRole(roles[new Random().nextInt(3)]);
+			log.info("Username {}, Password {}, Role {}",user.getUserName(), user.getPassword(), userInRole.getRole().getName());
 			userInRoleRepository.save(userInRole);
 		}
 	}

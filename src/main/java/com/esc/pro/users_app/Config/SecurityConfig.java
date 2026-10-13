@@ -20,20 +20,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig  {
 
     @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails admin = User.withUsername("admin")
-                .password(encoder().encode("password"))
-                .roles("ADMIN")
-                .build();
-        UserDetails user = User.withUsername("user")
-                .password(encoder().encode("passwordusers"))
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin,user);
-    }
-
-    @Bean
     public PasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
