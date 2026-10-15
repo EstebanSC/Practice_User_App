@@ -2,6 +2,7 @@ package com.esc.pro.users_app.Services;
 
 import com.esc.pro.users_app.Repositories.RoleRepository;
 import com.esc.pro.users_app.entities.Role;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
@@ -18,9 +19,9 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Secured("ROLE_ADMIN")
+    @RolesAllowed("ADMIN")
     public List<Role> getRoles(){
-        return roleRepository.findAll();
+        return roleRepository. findAll();
     }
 
     public Role createRole (Role role) {
