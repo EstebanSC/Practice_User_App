@@ -3,6 +3,8 @@ package com.esc.pro.users_app.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,6 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig  {
 
     @Bean
@@ -29,7 +32,7 @@ public class SecurityConfig  {
 
         return http.authorizeHttpRequests(request -> request
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                        .requestMatchers("/users/assignRole", "/users/roles/**").hasRole("ADMIN")
+                        //.requestMatchers("/users/assignRole", "/users/roles/**").hasRole("ADMIN")
                         .requestMatchers("/users/**").permitAll().anyRequest().authenticated()).httpBasic(Customizer.withDefaults()).csrf(csrf ->csrf.disable())
                 .build();
     }
