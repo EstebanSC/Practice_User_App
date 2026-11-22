@@ -1,0 +1,29 @@
+# Exclude build outputs and tooling files
+target/ export-ignore
+build/ export-ignore
+pom.xml.tag  export-ignore
+pom.xml.releaseBackup  export-ignore
+pom.xml.versionsBackup  export-ignore
+pom.xml.next  export-ignore
+release.properties  export-ignore
+dependency-reduced-pom.xml  export-ignore
+buildNumber.properties  export-ignore
+.mvn/timing.properties  export-ignore
+# https://maven.apache.org/tools/wrapper/#Usage_with_or_without_Binary_JAR
+.mvn/wrapper/maven-wrapper.jar  export-ignore
+
+# Eclipse m2e generated files
+# Eclipse Core
+.project  export-ignore
+# JDT-specific (Eclipse Java Development Tools)
+.classpath  export-ignore
+#IDEA
+.idea/  export-ignore
+*.iml export-ignore
+# Exclude Maven Wrapper scripts
+mvnw export-ignore
+mvnw.cmd export-ignore
+
+# Exclude Git and documentation files
+.gitignore export-ignore
+README.md export-ignore
