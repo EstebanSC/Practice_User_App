@@ -26,5 +26,6 @@ mvnw.cmd export-ignore
 
 # Exclude Git and documentation files
 .gitignore export-ignore
+.gitattributes export-ignore
 README.md export-ignore
 HELP.md export-ignore
