@@ -1,0 +1,28 @@
+package com.esc.applications.users.models;
+
+public class AuditDetails {
+
+    private String createdBy;
+    private String roleName;
+
+    public AuditDetails(String createdBy, String roleName) {
+        this.createdBy = createdBy;
+        this.roleName = roleName;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+}

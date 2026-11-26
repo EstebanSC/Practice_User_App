@@ -1,0 +1,58 @@
+package com.esc.applications.users;
+
+import com.esc.applications.users.Repositories.RoleRepository;
+import com.esc.applications.users.Repositories.UserInRoleRepository;
+import com.esc.applications.users.Repositories.UserRepository;
+import com.esc.applications.users.entities.Role;
+import com.esc.applications.users.entities.User;
+import com.esc.applications.users.entities.UserInRole;
+import com.github.javafaker.Faker;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Arrays;
+import java.util.Random;
+
+@Slf4j
+@SpringBootApplication
+public class UsersAppApplication implements ApplicationRunner {
+
+	@Autowired
+	private Faker faker;
+
+	@Autowired
+	private RoleRepository roleRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private UserInRoleRepository userInRoleRepository;
+
+	public static void main(String[] args) {
+		SpringApplication.run(UsersAppApplication.class, args);
+	}
+
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+		Role roles[] = {new Role("ADMIN"),new Role("SUPPORT"),new Role("USER")};
+		roleRepository.saveAll(Arrays.asList(roles));
+
+		for(int i = 0; i < 50; i++){
+			User user = new User();
+			user.setUserName(faker.name().username());
+			user.setPassword(faker.hobbit().character());
+			userRepository.save(user);
+
+			UserInRole userInRole = new UserInRole();
+			userInRole.setUser(user);
+			userInRole.setRole(roles[new Random().nextInt(3)]);
+			log.info("Username {}, Password {}, Role {}",user.getUserName(), user.getPassword(), userInRole.getRole().getName());
+			userInRoleRepository.save(userInRole);
+		}
+	}
+}

@@ -8,11 +8,11 @@
 		<version>3.4.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.esc.pro</groupId>
-	<artifactId>users_app</artifactId>
+	<groupId>com.esc.applications</groupId>
+	<artifactId>roles_users_app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>users_app</name>
-	<description>Practice with Spring</description>
+	<name>Roles Users App</name>
+	<description>Application to manage Users and theirs roles and profiles</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -37,7 +37,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.36</version>
+			<version>1.18.48</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -102,6 +102,20 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.13.0</version> <!-- Use a recent version -->
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.48</version> <!-- Match your Lombok version -->
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
